@@ -9,6 +9,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <cstdlib>
 #include "class.h"
 
 using namespace std;
@@ -28,8 +29,8 @@ void sieve(vector<integer>& h);
 
 
 //main for testing
-int main(){
-    int n = 100;
+int main(int argc, char* argv[]){
+    int n = stoi(argv[1]);
 
     vector<integer> list = create_list(n);
     display_all(list);
@@ -56,26 +57,28 @@ void display_all(vector<integer> h){
     for(size_t i = 0; i < h.size(); i++){
         cout << h[i].num() << " ";
     }
+
+    cout << endl << endl;
 }
 
 //sieve algorithim
 void sieve(vector<integer>& h){
     int p = 2;
     int n = h.size() + 1;
-    cout << endl << n;
+    cout << endl << n << endl << endl;
 
     //the algorithim goes until p is larger than the square root of n estimated down to nearest whole number
-    while(p < floor(sqrt(n))){
+    while(p <= floor(sqrt(n))){
 
-        //incrementing by *2 to mark all numbers composite
-        for(int i = p; i < n; i *= 2){
-            h[i - 2].mark();
+        //incrementing by p, if a number is "marked" that means its composite
+        for(int i = p+p; i <= n; i += p){
+            h[i-2].mark();
         }
 
         //sets p equal to the next unmarked number
-        for(int i = p; i < n; i++){
-            if(h[i].is_marked() == false){
-                p = h[i].num();
+        for(int i = p+1; i < n; i++){
+            if(h[i-2].is_marked() == false){
+                p = i;
                 break;
             }
         }
@@ -84,17 +87,21 @@ void sieve(vector<integer>& h){
 
 void display(vector<integer> h){
     cout << "Composite numbers: ";
-    for(int i = 0; i < h.size(); i++){
-        //prints all marked numbers
+    for(size_t i = 0; i < h.size(); i++){
+     //prints all marked numbers
         if(h[i].is_marked()){
             cout << h[i].num() << " ";
         }
     }
     cout << endl << endl;
+
+    //prints all numbers marked false
     cout << "Prime numbers: ";
-    for(int i = 0; i < h.size(); i++){
+    for(size_t i = 0; i < h.size(); i++){
         if(h[i].is_marked() == false){
             cout << h[i].num() << " ";
         }
     }
+
+    cout << endl;
 }
