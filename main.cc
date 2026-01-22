@@ -8,22 +8,26 @@
 
 #include <iostream>
 #include <vector>
+#include <cmath>
 #include "class.h"
 
 using namespace std;
 
 //creates list with numbers 2-n
 vector<integer> create_list(int n);
-void display(vector<integer> h);
+void display_all(vector<integer> h);
+void sieve(vector<integer>& h);
+void 
 
 
 
 //main for testing
 int main(){
-    int n = 10;
+    int n = 100;
 
     vector<integer> list = create_list(n);
-    display(list);
+    display_all(list);
+    sieve(list);
 
 };
 
@@ -41,8 +45,32 @@ vector<integer> create_list(int n){
 
 
 //display function implementation
-void display(vector<integer> h){
+void display_all(vector<integer> h){
     for(size_t i = 0; i < h.size(); i++){
-        cout << h[i].num() << endl;
+        cout << h[i].num() << " ";
+    }
+}
+
+//sieve algorithim
+void sieve(vector<integer>& h){
+    int p = 2;
+    int n = h.size() + 1;
+    cout << endl << n;
+
+    //the algorithim goes until p is larger than the square root of n estimated down to nearest whole number
+    while(p < floor(sqrt(n))){
+
+        //incrementing by *2 to mark all numbers composite
+        for(int i = p; i < n; i *= 2){
+            h[i - 2].mark();
+        }
+
+        //sets p equal to the next unmarked number
+        for(int i = p; i < n; i++){
+            if(h[i].is_marked() == false){
+                p = h[i].num();
+                break;
+            }
+        }
     }
 }
