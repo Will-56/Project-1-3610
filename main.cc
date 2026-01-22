@@ -15,9 +15,15 @@ using namespace std;
 
 //creates list with numbers 2-n
 vector<integer> create_list(int n);
+
+//displays whole vector
 void display_all(vector<integer> h);
-void sieve(vector<integer>& h);
-void 
+
+//displays primes and composites seperate
+void display(vector<integer> h);
+
+
+void sieve(vector<integer>& h); 
 
 
 
@@ -28,6 +34,7 @@ int main(){
     vector<integer> list = create_list(n);
     display_all(list);
     sieve(list);
+    display(list);
 
 };
 
@@ -71,6 +78,23 @@ void sieve(vector<integer>& h){
                 p = h[i].num();
                 break;
             }
+        }
+    }
+}
+
+void display(vector<integer> h){
+    cout << "Composite numbers: ";
+    for(int i = 0; i < h.size(); i++){
+        //prints all marked numbers
+        if(h[i].is_marked()){
+            cout << h[i].num() << " ";
+        }
+    }
+    cout << endl << endl;
+    cout << "Prime numbers: ";
+    for(int i = 0; i < h.size(); i++){
+        if(h[i].is_marked() == false){
+            cout << h[i].num() << " ";
         }
     }
 }
