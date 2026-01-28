@@ -1,7 +1,10 @@
 /**
  * main file for the Sieve of Eratosthenes, in this file there is a function for creating a vector
  * that is a list of numbers between 2 and n, n being an user inputted number. There is also a
- * display function for
+ * display function that displays prime numbers first then composite. The file also contains the sieve algorithim
+ * which is a way to find prime numbers between 2 and n.
+ * 
+ * Will Kashner 2026
  */
 
 
@@ -17,10 +20,10 @@ using namespace std;
 //creates list with numbers 2-n
 vector<integer> create_list(int n);
 
-//displays whole vector
+//displays whole vector(was for testing)
 void display_all(vector<integer> h);
 
-//displays primes and composites seperate (was for testing)
+//displays primes and composites seperate 
 void display(vector<integer> h);
 
 //sieve algorithim
@@ -70,7 +73,7 @@ void sieve(vector<integer>& h){
     int n = h.size() + 1;
     //cout << endl << n << endl << endl;
 
-    //the algorithim goes until p is larger than the square root of n estimated down to nearest whole number
+    //the loop goes until p is larger than the square root of n estimated down to nearest whole number
     while(p <= floor(sqrt(n))){
 
         //incrementing by p, if a number is "marked" that means its composite
@@ -91,7 +94,7 @@ void sieve(vector<integer>& h){
 
 //displays prime numbers, then composite numbers
 void display(vector<integer> h){
-    cout << "Prime numbers: ";
+    //cout << "Prime numbers: ";
     for(size_t i = 0; i < h.size(); i++){
      //prints all numbers marked false
         if(h[i].is_marked() == false){
@@ -101,7 +104,7 @@ void display(vector<integer> h){
     cout << endl << endl;
 
     //prints all numbers marked true
-    cout << "Composite numbers: ";
+    //cout << "Composite numbers: ";
     for(size_t i = 0; i < h.size(); i++){
         if(h[i].is_marked() == true){
             cout << h[i].num() << " ";
